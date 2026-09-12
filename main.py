@@ -6,6 +6,7 @@ import string
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 from nltk.stem import WordNetLemmatizer
 import nltk
+import os
 
 nltk.download('wordnet')
 nltk.download('omw-1.4')
@@ -98,5 +99,5 @@ def predict():
         return jsonify({'Error': str(e)}), 500
 
 if __name__ =='__main__':
-    app.run(debug=True)
-    
+    port = int(os.environ.get('PORT' , 5000))
+    app.run(host = '0.0.0.0' , port = port , debug = True)
