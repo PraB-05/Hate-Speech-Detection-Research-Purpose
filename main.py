@@ -19,7 +19,6 @@ stopwords.discard('not')
 stopwords.discard('never')
 stopwords.discard('nor')
 
-translator = GoogleTranslator(source='auto' , target='en')
 
 
 
