@@ -72,7 +72,7 @@ def clean(text):
 def clean_series(texts):
     return texts.apply(clean)
 
-with open(r'd:\Data Science\Projects\hate-speech\hindi_dataset\hindi_dataset\Hate_speech_pipeline2.pkl' , 'rb') as f:
+with open('Hate_speech_pipeline2.pkl' , 'rb') as f:
     model = pickle.load(f)
 
 @app.route('/')
