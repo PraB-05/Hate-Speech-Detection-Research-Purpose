@@ -6,7 +6,6 @@ import string
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 from nltk.stem import WordNetLemmatizer
 import nltk
-from deep_translator import GoogleTranslator
 
 nltk.download('wordnet')
 nltk.download('omw-1.4')
