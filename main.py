@@ -76,10 +76,24 @@ def clean_series(texts):
 with open('Hate_speech_pipeline2.pkl' , 'rb') as f:
     model = pickle.load(f)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return 'Hate Speech detection app is running..'
-
+    prediction = None
+    if request.method == 'POST':
+        text = request.form.get('text', '')
+        text_series = pd.Series([text])
+        pred = model.predict(text_series)[0]
+        prediction = "Hate speech" if pred == 1 else "No Hate speech"
+    
+    return f'''
+    <h2>Hate Speech Detection API</h2>
+    <form method="POST">
+        <textarea name="text" rows="4" cols="50" placeholder="Enter text here"></textarea><br>
+        <button type="submit">Predict</button>
+    </form>
+    <h3>{"Prediction: " + prediction if prediction else ""}</h3>
+    <p>API endpoint: POST /predict with JSON {{"text": "your text"}}</p>
+    '''
 @app.route('/predict' , methods = ['POST'])
 def predict():
     try:
