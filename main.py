@@ -1,7 +1,7 @@
 import pickle
 import pandas as pd
 import numpy as np
-from flask import Flask , request , jsonify
+from flask import Flask , request , jsonify , render_template
 import string 
 from sklearn.feature_extraction.text import ENGLISH_STOP_WORDS
 from nltk.stem import WordNetLemmatizer
@@ -85,15 +85,7 @@ def home():
         pred = model.predict(text_series)[0]
         prediction = "Hate speech" if pred == 1 else "No Hate speech"
     
-    return f'''
-    <h2>Hate Speech Detection API</h2>
-    <form method="POST">
-        <textarea name="text" rows="4" cols="50" placeholder="Enter text here"></textarea><br>
-        <button type="submit">Predict</button>
-    </form>
-    <h3>{"Prediction: " + prediction if prediction else ""}</h3>
-    <p>API endpoint: POST /predict with JSON {{"text": "your text"}}</p>
-    '''
+    return render_template('index.html' , prediction = prediction , input_text = input_text)
 @app.route('/predict' , methods = ['POST'])
 def predict():
     try:
