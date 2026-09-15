@@ -85,7 +85,7 @@ def home():
         pred = model.predict(text_series)[0]
         prediction = "Hate speech" if pred == 1 else "No Hate speech"
     
-    return render_template('index.html' , prediction = prediction , input_text = input_text)
+    return render_template('index.html' , prediction = prediction , input_text = text)
 @app.route('/predict' , methods = ['POST'])
 def predict():
     try:
