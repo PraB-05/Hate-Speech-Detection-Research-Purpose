@@ -1,1 +1,130 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hate Speech Detector</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #1e1e2f 0%, #2d2d44 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        h1 {
+            color: #1e1e2f;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 28px;
+        }
+        textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 100px;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #6c5ce7;
+        }
+        button {
+            margin-top: 16px;
+            width: 100%;
+            padding: 14px;
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #5849c4;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+        .hate {
+            background-color: #e74c3c22;
+            border-left: 4px solid #e74c3c;
+        }
+        .no-hate {
+            background-color: #27ae6022;
+            border-left: 4px solid #27ae60;
+        }
+        .result-value.hate-text {
+            color: #e74c3c;
+            font-weight: 700;
+        }
+        .result-value.no-hate-text {
+            color: #27ae60;
+            font-weight: 700;
+        }
+        .api-info {
+            margin-top: 28px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 12px;
+            color: #999;
+            line-height: 1.6;
+        }
+        .api-info code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #6c5ce7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🛡️ Hate Speech Detector</h1>
+        <p class="subtitle">NLP-based text classification using TF-IDF + Logistic Regression</p>
+        
+        <form method="POST">
+            <textarea name="text" placeholder="Type or paste a sentence to analyze...">{{ input_text }}</textarea>
+            <button type="submit">Analyze Text</button>
+        </form>
+        
+        {% if prediction %}
+        <div class="result {{ 'hate' if prediction == 'Hate speech' else 'no-hate' }}">
+            <span>Prediction: </span>
+            <span class="result-value {{ 'hate-text' if prediction == 'Hate speech' else 'no-hate-text' }}">{{ prediction }}</span>
+        </div>
+        {% endif %}
+        
+        <div class="api-info">
+            <strong>API Access:</strong> POST to <code>/predict</code> with JSON 
+            body <code>{"text": "your text"}</code>
+        </div>
+    </div>
+</body>
+</html>
