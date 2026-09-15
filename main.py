@@ -78,6 +78,7 @@ with open('Hate_speech_pipeline2.pkl' , 'rb') as f:
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
+    text = ''
     prediction = None
     if request.method == 'POST':
         text = request.form.get('text', '')
